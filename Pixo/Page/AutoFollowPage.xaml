@@ -50,13 +50,13 @@
                 <!--Source-->
                 <StackPanel Orientation="Vertical" Grid.Row="2" Margin="17,0,17,11" HorizontalAlignment="Stretch">
                     <TextBlock Text="Source" Foreground="#fff" Margin="0,0,0,5"/>
-                    <TextBox Name="tbSourcer" Style="{StaticResource TextBoxStyle}" Foreground="#CCFFFFFF" FontSize="17" HorizontalAlignment="Stretch"  PlaceholderText="username" PlaceholderForeground="#99FFFFFF" InputScope="NumericPin" Background="#FF282A36" TextChanged="tbNumberOfFollower_TextChanged"/>
+                    <TextBox Name="tbSourcer" Style="{StaticResource TextBoxStyle}" Foreground="#CCFFFFFF" FontSize="17" HorizontalAlignment="Stretch"  PlaceholderText="username"  InputScope="NumericPin" Background="#FF282A36" TextChanged="tbNumberOfFollower_TextChanged"/>
                 </StackPanel>
                 
                 <!--Number of Followers-->
                 <StackPanel Orientation="Vertical" Grid.Row="3" Margin="17,0,17,11" HorizontalAlignment="Stretch">
                     <TextBlock Text="Number of Followings" Foreground="#fff" Margin="0,0,0,5"/>
-                    <TextBox Name="tbNumberOfFollower" Style="{StaticResource TextBoxStyle}"  Foreground="#CCFFFFFF" FontSize="17" HorizontalAlignment="Stretch"  PlaceholderText="313" PlaceholderForeground="#99FFFFFF" InputScope="NumericPin" Background="#FF282A36" TextChanged="tbNumberOfFollower_TextChanged"/>
+                    <TextBox Name="tbNumberOfFollower" Style="{StaticResource TextBoxStyle}"  Foreground="#CCFFFFFF" FontSize="17" HorizontalAlignment="Stretch"  PlaceholderText="313" InputScope="NumericPin" Background="#FF282A36" TextChanged="tbNumberOfFollower_TextChanged"/>
                 </StackPanel>
                 
                 <!--Speed-->

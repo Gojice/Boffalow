@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+﻿using InstagramApiSharp.Classes;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace Pixo
     {
         public static int NotifDelay = 5000;
         public static InAppNotification Notifer { set; get; }
+
+        //Lohin Data:
+        public static IResult<InstaChallengeRequireVerifyMethod> Challenge { get; set; }
     }
 }

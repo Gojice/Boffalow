@@ -1,4 +1,5 @@
 ﻿using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Pixo
         public static ComboBox cbMet;
         public static ListView lv;
         public static InAppNotification notifers;
-
+        public static ProgressRing pr;
 
         public UnFollowPage()
         {
@@ -50,13 +51,13 @@ namespace Pixo
 
         private void btnProcess_Click(object sender, RoutedEventArgs e)
         {
-            if(tbNumberOfunFollower.Text.Length ==0)
+            if(tbNumberOfunFollower.Text.Length ==0 && cbMethoud.SelectedIndex != 3)
             {
                 Notinfer.Show("You should set the Maximum number of unfollow!",2000);
                 return;
             }
             int parsedValue;
-            if (!int.TryParse(tbNumberOfunFollower.Text, out parsedValue))
+            if (!int.TryParse(tbNumberOfunFollower.Text, out parsedValue) && cbMethoud.SelectedIndex != 3)
             {
                 Notinfer.Show("Please insert iniger in max number field.", 2000);
                 return;
@@ -92,8 +93,8 @@ namespace Pixo
                         break;
                     case 3:
                         {
-                            History.Methud = 2;
-                            UnfollowAll();
+                            History.Methud = 3;
+                            UnFollowSelected();
                         }
                         break;
                 }
@@ -105,6 +106,23 @@ namespace Pixo
                 btnProcess.Content = "Waiting...";
                 btnProcess.IsEnabled = false;
             }
+        }
+
+        private void UnFollowSelected()
+        {
+            var Selected =  lvList.SelectedItems;
+            if (Selected.Count == 0)
+            {
+                Statico.Notifer.Show(string.Format("You Should select a item for Unfollow."), Statico.NotifDelay);
+                btnProcess.Content = "Process";
+                tbNumberOfunFollower.IsEnabled = true;
+                cbMethoud.IsEnabled = true;
+                btnProcess.IsEnabled = true;
+                return;
+            }
+
+            UnFollower un = new UnFollower();
+            un.Selected(Selected);
         }
 
         private void UnfollowAll()
@@ -156,12 +174,14 @@ namespace Pixo
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            await UserWorkation._loadSessionDelay();
             tbMax = tbMaxNumber;
             tbNumber = tbNumberOfunFollower;
             btnUnf = btnProcess;
             cbMet = cbMethoud;
             lv = lvList;
             notifers = Notinfer;
+            pr = prLoadData;
 
             if (History.unFirst)
             {
@@ -195,11 +215,21 @@ namespace Pixo
                             lvList.ItemsSource = FollowerAnalyser.Followers;
                         }
                         break;
+                    case 3:
+                        {
+                            cbMethoud.SelectedIndex = 3;
+                            tbMaxNumber.Text = FollowerAnalyser.Diffrent.Count().ToString();
+                            tbNumberOfunFollower.PlaceholderText = FollowerAnalyser.Diffrent.Count().ToString();
+                            lvList.ItemsSource = FollowerAnalyser.Diffrent;
+                        }
+                        break;
                 }
                 HomePage.par.IsActive = true;
             }
             else
             {
+                if(!FollowerAnalyser.Diffrents)
+                pr.IsActive = true;
                 History.isStopUn = true;
                 while (!FollowerAnalyser.Diffrents)
                 {
@@ -210,7 +240,6 @@ namespace Pixo
                 tbMaxNumber.Text = FollowerAnalyser.Diffrent.Count + "";
                 tbNumberOfunFollower.PlaceholderText = FollowerAnalyser.Diffrent.Count().ToString();
                 lvList.ItemsSource = FollowerAnalyser.Diffrent;
-
             }
         }
 
@@ -224,7 +253,11 @@ namespace Pixo
             {
                 await Task.Delay(100);
             }
-
+            try
+            {
+                tbNumberOfunFollower.IsEnabled = true;
+            }
+            catch { }
             switch (cbMethoud.SelectedIndex)
             {
                 case 0:
@@ -257,13 +290,20 @@ namespace Pixo
                     break;
                 case 3:
                     {
-                        tbNumberOfunFollower.PlaceholderText = FollowerAnalyser.Followings.Count().ToString();
-                        tbMaxNumber.Text = FollowerAnalyser.Followings.Count.ToString();
-                        lvList.ItemsSource = FollowerAnalyser.Followings;
+                        tbMaxNumber.Text = FollowerAnalyser.Diffrent.Count + "";
+                        tbNumberOfunFollower.PlaceholderText = FollowerAnalyser.Diffrent.Count().ToString();
+                        lvList.ItemsSource = FollowerAnalyser.Diffrent;
                         lvList.SelectionMode = ListViewSelectionMode.Multiple;
+                        tbNumberOfunFollower.IsEnabled = false;
+                        tbMaxNumber.Text = "0";
                     }
                     break;
             }
+        }
+        
+        private void lvList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            tbMaxNumber.Text = lvList.SelectedItems.Count+"";
         }
     }
 }

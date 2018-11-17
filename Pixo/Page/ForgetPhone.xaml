@@ -17,7 +17,7 @@
                     <ImageBrush ImageSource="/Assets/Picture/musk-ox.png" Stretch="Uniform"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <TextBox Name="tbPhone" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" InputScope="TelephoneNumber" HorizontalAlignment="Center" PlaceholderText="Phone" MinWidth="300"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#B2FFFFFF" PlaceholderForeground="#66FFFFFF" FocusVisualPrimaryBrush="#66FFFFFF" FocusVisualSecondaryBrush="#19FFFFFF" SelectionHighlightColor="#66FFFFFF"/>
+            <TextBox Name="tbPhone" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="Phone" MinWidth="300"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#B2FFFFFF"  />
             <Border Height="1" HorizontalAlignment="Stretch" Background="#66FFFFFF"/>
             <Button Name="btnGo"  Style="{StaticResource ButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="300" Content="Send Link" Margin="0,23,0,0" Background="#cb1f2d" BorderBrush="#FFD81425" Foreground="#B2FFFFFF" FocusVisualPrimaryBrush="#FFE6DC08" Click="btnGo_Click" />
             <TextBlock Name="tbForget" Text="Recovery With User or Email." Tapped="tbForget_Tapped" Foreground="#66FFFFFF" Margin="0,7,0,0" />

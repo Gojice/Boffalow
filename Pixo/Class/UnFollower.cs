@@ -1,4 +1,5 @@
 ﻿using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -73,19 +74,7 @@ namespace Pixo
                     }
                 }
 
-                int delay = 30000 + random.Next(4500);
-                Debug.WriteLine("Delay = " + delay);
-                int Ok = 0;
-                while (Ok <= delay)
-                {
-                    await Task.Delay(100);
-                    Ok += 100;
-                    if (History.isStopUn)
-                    {
-                        Stop();
-                        return;
-                    }
-                }
+               
 
 
             }
@@ -155,24 +144,73 @@ namespace Pixo
                     {
 
                     }
-                }
-                B++;
-                if (B == 50)
+                }  
+            }
+            Stop();
+            return;
+        }
+
+        internal async void Selected(IList<object> selected)
+        {
+            foreach (var item in selected)
+            {
+                var userShort = (InstaUserShort)item;
+                //press Stop:
+                if (History.isStopUn)
                 {
-                    int delay = 30000 + random.Next(4500);
-                    Debug.WriteLine("Delay = " + delay);
-                    int Ok = 0;
-                    while (Ok <= delay)
+                    Stop();
+                    return;
+                }
+
+
+                Random random = new Random();
+                var result = await UserWorkation.InstaApi.UserProcessor.UnFollowUserAsync(userShort.Pk);
+                if (result.Succeeded)
+                {
+                    FollowerAnalyser.Diffrent.RemoveAll(a => a.Pk == userShort.Pk);
+                    FollowerAnalyser.Followings.RemoveAll(a => a.Pk == userShort.Pk);
+                    Debug.WriteLine(userShort.UserName);
+
+                    FollowerAnalyser.Diffrensial();
+
+                    HomePage.DiffrentNumber.Text = FollowerAnalyser.Diffrent.Count().ToString();
+                    HomePage.FollowingNumber.Text = FollowerAnalyser.Followings.Count().ToString();
+                    UnFollowPage.tbMax.Text = FollowerAnalyser.Diffrent.Count().ToString();
+                    UnFollowPage.tbNumber.PlaceholderText = FollowerAnalyser.Diffrent.Count().ToString();
+                    UnFollowPage.lv.ItemsSource = FollowerAnalyser.Diffrent;
+                    Statico.Notifer.Show(userShort.UserName + "is Unfollowed.", Statico.NotifDelay);
+                }
+                else
+                {
+                    
+                    Debug.WriteLine(result.Info.Message);
+                    Debug.WriteLine(result.Info.ResponseType);
+                    Statico.Notifer.Show(result.Info.Message , Statico.NotifDelay);
+                    //Notinfer.Show(result.Info.Message, 60000);
+                    if (result.Info.ResponseType == ResponseType.ChallengeRequired)
                     {
-                        await Task.Delay(100);
-                        Ok += 100;
-                        if (History.isStopUn)
-                        {
-                            Stop();
-                            return;
-                        }
+
                     }
-                    B = 0;
+                    else if (result.Info.ResponseType == ResponseType.CheckPointRequired)
+                    {
+
+                    }
+                    else if (result.Info.ResponseType == ResponseType.LoginRequired)
+                    {
+
+                    }
+                    else if (result.Info.ResponseType == ResponseType.RequestsLimit)
+                    {
+
+                    }
+                    else if (result.Info.ResponseType == ResponseType.SentryBlock)
+                    {
+
+                    }
+                    else if (result.Info.ResponseType == ResponseType.WrongRequest)
+                    {
+
+                    }
                 }
             }
             Stop();
@@ -289,8 +327,8 @@ namespace Pixo
                     Debug.WriteLine(result.Info.Message);
                     Debug.WriteLine(result.Info.ResponseType);
 
+                    ErrorCheck(result);
                    // Notinfer.Show(result.Info.Message, 60000);
-                    i++;
                     if (result.Info.ResponseType == ResponseType.ChallengeRequired)
                     {
 
@@ -316,29 +354,20 @@ namespace Pixo
 
                     }
                 }
-
-                int delay = 30000 + random.Next(4500);
-                Debug.WriteLine("Delay = " + delay);
-                int Ok = 0;
-                while (Ok <= delay)
-                {
-                    await Task.Delay(100);
-                    Ok += 100;
-                    if (History.isStopUn)
-                    {
-                        Stop();
-                        return;
-                    }
-                }
-
-
             }
+        }
+
+        private void ErrorCheck(IResult<InstaFriendshipStatus> result)
+        {
+            throw new NotImplementedException();
         }
 
         private void Stop()
         {
             History.isStopUn = true;
+            History.unFirst = false;
             UnFollowPage.btnUnf.Content = "Process";
+            if(UnFollowPage.cbMet.SelectedIndex != 3)
             UnFollowPage.tbNumber.IsEnabled = true;
             UnFollowPage.cbMet.IsEnabled = true;
             UnFollowPage.btnUnf.IsEnabled = true;

@@ -87,11 +87,12 @@ namespace Pixo
                 {
                     if (challenge.Value.SubmitPhoneRequired)
                     {
-
+                        Frame.Navigate(typeof(SubmitPhonePage));
                     }
                     else
                     {
-                        Frame.Navigate(typeof(ChalInfoPage), challenge);
+                        Statico.Challenge = challenge;
+                        Frame.Navigate(typeof(ChalInfoPage));
                     }
 
                 }

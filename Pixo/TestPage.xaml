@@ -9,11 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
+        <!--<StackPanel>
             <TextBlock Text="..." Name="tbriU" Tapped="tbriU_Tapped"/>
             <Button Content="Send" Click="Button_Click_1"/>
 
             <Button Content="Send" Click="Button_Click"/>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </Page>

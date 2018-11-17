@@ -21,7 +21,7 @@
                     <ImageBrush ImageSource="/Assets/Picture/musk-ox.png" Stretch="Uniform"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <TextBox Name="tbcode" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="username" MinWidth="300"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#B2FFFFFF" PlaceholderForeground="#66FFFFFF" FocusVisualPrimaryBrush="#66FFFFFF" FocusVisualSecondaryBrush="#19FFFFFF" SelectionHighlightColor="#66FFFFFF"/>
+            <TextBox Name="tbcode" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="username" MinWidth="300"  Background="{x:Null}" BorderBrush="{x:Null}" />
             <Border Height="1" HorizontalAlignment="Stretch" Background="#66FFFFFF"/>
             <Button Name="btnok" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonStyle}" MinWidth="300" Content="login" Margin="0,15,0,0" Click="btnok_Click" />
             <TextBlock Name="tbresendCode" Text="dont get code?" Tapped="tbresendCode_Tapped" Foreground="#66FFFFFF" Margin="0,7,0,0" />

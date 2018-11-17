@@ -22,6 +22,7 @@
             </Grid.RowDefinitions>
             <Border BorderThickness="0,0,1,0" Grid.RowSpan="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,100"  BorderBrush="#4CFFFFFF" />
 
+
             <!--Title-->
             <TextBlock Text="Auto UnFollow" Foreground="White" FontSize="23" VerticalAlignment="Bottom" Margin="17,0"/>
             <Grid Grid.Row="1">
@@ -35,10 +36,10 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <!--information-->
-                <TextBlock Text="it is best way to get many followers as auto! if you need more follower, you can do this! choose your way and Get many Followers!" TextAlignment="Justify" TextWrapping="Wrap" Margin="17,0" Grid.Row="0" Foreground="#CCFFFFFF" />
+                <TextBlock Text="It is the best way to unfollow users that not following you. If you have many followings, You can do this! Choose your way and get rid of them!" TextAlignment="Justify" TextWrapping="WrapWholeWords" Margin="17,0" Grid.Row="0" Foreground="#CCFFFFFF" />
 
                 <!--methoud-->
-                <StackPanel Orientation="Vertical" Grid.Row="1" Margin="17,0,17,11" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Vertical" Grid.Row="1" Margin="17,7,17,11" HorizontalAlignment="Stretch">
                     <TextBlock Text="Methoud" Foreground="#fff" Margin="0,0,0,5"/>
                     <ComboBox Name="cbMethoud" IsEnabled="False"  Foreground="#CCFFFFFF" FontSize="17" HorizontalAlignment="Stretch" PlaceholderText="Methoud" SelectedIndex="0" Background="#FF282A36" SelectionChanged="cbMethoud_SelectionChanged">
                         <ComboBoxItem Content="User that not Follow me"/>
@@ -58,14 +59,14 @@
                 <!--Number of Followers-->
                 <StackPanel Orientation="Vertical" Grid.Row="3" Margin="17,0,17,11" HorizontalAlignment="Stretch">
                     <TextBlock Text="Number of unFollow" Foreground="#fff" Margin="0,0,0,5"/>
-                    <TextBox Name="tbNumberOfunFollower" Style="{StaticResource TextBoxStyle}" Foreground="#CCFFFFFF" FontSize="17" HorizontalAlignment="Stretch"  PlaceholderText="313" PlaceholderForeground="#99FFFFFF" InputScope="Digits" Background="#FF282A36" TextChanged="tbNumberOfunFollower_TextChanged"/>
+                    <TextBox Name="tbNumberOfunFollower" Style="{StaticResource TextBoxStyle}" Foreground="#CCFFFFFF" FontSize="17" HorizontalAlignment="Stretch"  PlaceholderText="313" InputScope="Digits" Background="#FF282A36" TextChanged="tbNumberOfunFollower_TextChanged"/>
                 </StackPanel>
 
                 <!--Speed-->
                 <Slider Name="sldSpeed" Header="Speed" Grid.Row="4" Visibility="Collapsed" Foreground="#CCFFFFFF" FontSize="17" HorizontalAlignment="Stretch" Margin="17,0,17,11" LargeChange="1" Minimum="1" Maximum="10" SmallChange="1" Value="1"/>
 
                 <!--Button-->
-                <Button Name="btnProcess" IsEnabled="False" Content="Process" Grid.Row="5" FontSize="17" Margin="17,0,17,11" HorizontalAlignment="Right" Width="100" Background="#f64f47" Foreground="White" BorderBrush="#FFF04C39" Click="btnProcess_Click"/>
+                <Button Name="btnProcess" Style="{StaticResource ButtonStyle}" IsEnabled="False" Content="Process" Grid.Row="5" FontSize="17" Margin="17,0,17,11" HorizontalAlignment="Right" Width="100"  Click="btnProcess_Click"/>
                 
                 <!--Log-->
                 <ScrollViewer Grid.Row="6">
@@ -75,7 +76,8 @@
 
             </Grid>
         </Grid>
-        <ListView Name="lvList" Grid.Column="1" Margin="0,100" SelectionMode="None">
+        <ProgressRing Name="prLoadData" Grid.Column="1" Height="110" Foreground="#B2FFFFFF" Width="110" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" IsActive="False"/>
+        <ListView Name="lvList" Grid.Column="1" Margin="0,100" SelectionMode="None" SelectionChanged="lvList_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

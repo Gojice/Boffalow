@@ -12,8 +12,11 @@ namespace Pixo
 {
     static class  FollowerAnalyser
     {
-        public static InstaUserShortList Followers { get; private set; }
-        public static InstaUserShortList Followings { get; private set; }
+        private static IResult<InstaUserShortList> result;
+
+        public static InstaUserShortList Followers = new InstaUserShortList();
+        public static IResult<InstaUserShortList> fresult { get; private set; }
+        public static InstaUserShortList Followings = new InstaUserShortList();
         public static List<InstaUserShort> Diffrent { get; private set; }
         public static List<InstaUserShort> Equals { get; private set; }
         public static List<InstaUserShort> Fans { get; private set; }
@@ -27,26 +30,27 @@ namespace Pixo
         static public async void AllFollower()
         {
             PaginationParameters P = PaginationParameters.Empty;
-            var result = await UserWorkation.InstaApi.UserProcessor.GetUserFollowersAsync(UserWorkation.User ,P);
-            if (result.Succeeded)
-            {
+
+                result = await UserWorkation.InstaApi.UserProcessor.GetUserFollowersAsync(UserWorkation.User, P);
+                if (result.Succeeded)
+                {
                 Followers = result.Value;
-                AllFollowers = result.Succeeded;
-            }
-            else
-            {
-
-            }
-
+                }
+            AllFollowers = result.Succeeded;
         }
 
 
         static public async void AllFollowing()
         {
             PaginationParameters P = PaginationParameters.Empty;
-            var result = await UserWorkation.InstaApi.UserProcessor.GetUserFollowingAsync(UserWorkation.User, P);
-            Followings = result.Value;
-            AllFollowings = result.Succeeded;
+
+                fresult = await UserWorkation.InstaApi.UserProcessor.GetUserFollowingAsync(UserWorkation.User, P);
+            if (fresult.Succeeded)
+            {
+                Followings = fresult.Value;
+            }
+                
+            AllFollowings = fresult.Succeeded;
         }
 
         static public async void Diffrensial()

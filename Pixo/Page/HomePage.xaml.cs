@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using InstagramApiSharp;
+using Windows.UI.Core;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -41,8 +42,8 @@ namespace Pixo
             this.InitializeComponent();
         }
         // Define max memory cache size
-        
 
+        string page = "AutoUnFollow";
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -52,38 +53,28 @@ namespace Pixo
             FansNumber = tbFansNumber;
             par = prLoadData;
             frmHome.Navigate(typeof(UnFollowPage));
-            //  await grdHome.Blur(7, 500, 0).StartAsync();
             var ok = await UserWorkation.LoadSession();
             if (ok)
             {
-                Filer filer = new Filer();
-                var json = await filer.ReadSession();
-
-                ImageCache.Instance.MaxMemoryCacheCount = 200;
-
-                var S = JsonConvert.DeserializeObject<SeissonClass>(json);
+                
                 ppUser.DisplayName = UserWorkation.User;
                 tbUserName.Text = UserWorkation.User;
 
-                //Precache data and save it in on local hard drive
-                try
-                {
-                    await ImageCache.Instance.PreCacheAsync(new Uri(S.UserSession.LoggedInUser.ProfilePicture), true, false);
-                    var bitmapImage = await ImageCache.Instance.GetFromCacheAsync(new Uri(S.UserSession.LoggedInUser.ProfilePicture));
-                    ppUser.ProfilePicture = bitmapImage;
-                }
-                catch(Exception ex)
-                {
-                    Debug.WriteLine("Avatar image Caching problem: "+ex);
-                }
+                Statico.Notifer.Show("Please Wait... We try to get and analyse your data.", Statico.NotifDelay);
+                var requests = new List<Task>();
+                requests.Add(Task.Factory.StartNew(new Action (LoadAvatar)));
+                requests.Add(Task.Factory.StartNew(new Action(FollowerAnalyser.AllFollowing)));
+                requests.Add(Task.Factory.StartNew(new Action(FollowerAnalyser.AllFollower)));
 
-                FollowerAnalyser.AllFollower();
-                FollowerAnalyser.AllFollowing();
+                Task.WaitAll(requests.ToArray());
+
 
                 while (FollowerAnalyser.AllFollowers != true ||  FollowerAnalyser.AllFollowings != true)
                 {
                     await Task.Delay(100);
                 }
+
+                UnFollowPage.pr.IsActive = false;
 
                 prLoadData.IsActive = false;
                 tbFollowerNumber.Text = FollowerAnalyser.Followers.Count().ToString();
@@ -102,24 +93,80 @@ namespace Pixo
             }
         }
 
+        private async void LoadAvatar()
+        {
+            Filer filer = new Filer();
+            var json = await filer.ReadSession();
+
+            ImageCache.Instance.MaxMemoryCacheCount = 200;
+
+            var S = JsonConvert.DeserializeObject<SeissonClass>(json);
+
+            //Precache data and save it in on local hard drive
+            try
+            {
+                await ImageCache.Instance.PreCacheAsync(new Uri(S.UserSession.LoggedInUser.ProfilePicture), true, false);
+                var bitmapImage = await ImageCache.Instance.GetFromCacheAsync(new Uri(S.UserSession.LoggedInUser.ProfilePicture));
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    ppUser.ProfilePicture = bitmapImage;
+                });
+            }
+            catch (Exception ex)
+            {
+                var X = await UserWorkation.InstaApi.GetCurrentUserAsync();
+                await ImageCache.Instance.PreCacheAsync(new Uri(X.Value.HdProfilePicture.Uri), true, false);
+                var bitmapImage = await ImageCache.Instance.GetFromCacheAsync(new Uri(X.Value.HdProfilePicture.Uri));
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    ppUser.ProfilePicture = bitmapImage;
+                });
+            }
+            finally
+            {
+                var X = await UserWorkation.InstaApi.GetCurrentUserAsync();
+                await ImageCache.Instance.PreCacheAsync(new Uri(X.Value.HdProfilePicture.Uri), true, false);
+                var bitmapImage = await ImageCache.Instance.GetFromCacheAsync(new Uri(X.Value.HdProfilePicture.Uri));
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,() =>{
+                    ppUser.ProfilePicture = bitmapImage;
+                });
+               
+                
+            }
+        }
+        
         private void btnAutoFollow_Click(object sender, RoutedEventArgs e)
         {
-            frmHome.Navigate(typeof(AutoFollowPage));
+            if (page != "AutoFollowPage")
+            {
+                page = "AutoFollowPage";
+                frmHome.Navigate(typeof(AutoFollowPage));
+            }
         }
 
         private void btnAutoUnFollow_Click(object sender, RoutedEventArgs e)
         {
-            frmHome.Navigate(typeof(UnFollowPage));
+            if (page != "AutoUnFollow")
+            {
+                page = "AutoUnFollow";
+                frmHome.Navigate(typeof(UnFollowPage));
+            }
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            frmHome.Navigate(typeof(SettingPage));
+            if (page != "SettingPage")
+            {
+                page = "SettingPage";
+                frmHome.Navigate(typeof(SettingPage));
+            }
         }
 
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            frmHome.Navigate(typeof(TestPage));
+            if (page != "AboutPage")
+            {
+                page = "AboutPage";
+                frmHome.Navigate(typeof(AboutPage));
+            }
         }
     }
 }

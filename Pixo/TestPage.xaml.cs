@@ -30,51 +30,51 @@ namespace Pixo
         {
             this.InitializeComponent();
         }
-        readonly StorageFolder LocalFolder = ApplicationData.Current.LocalFolder;
-        IReadOnlyList<StorageFile> SelectedFiles = null;
+        //readonly StorageFolder LocalFolder = ApplicationData.Current.LocalFolder;
+        //IReadOnlyList<StorageFile> SelectedFiles = null;
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // nkon
-            var selectedFile = SelectedFiles.FirstOrDefault();
-            var fileb = (await FileIO.ReadBufferAsync(selectedFile)).ToArray();
-            InstaImage image = new InstaImage
-            {
-                ImageBytes= fileb,
-                Uri = selectedFile.Path
-            };
+        //private async void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    // nkon
+        //    var selectedFile = SelectedFiles.FirstOrDefault();
+        //    var fileb = (await FileIO.ReadBufferAsync(selectedFile)).ToArray();
+        //    InstaImage image = new InstaImage
+        //    {
+        //        ImageBytes= fileb,
+        //        Uri = selectedFile.Path
+        //    };
 
-            var up = await UserWorkation.InstaApi.MediaProcessor.UploadPhotoAsync(image, "It is My #Dream.");
-            if(!up.Succeeded)
-            tbriU.Text = up.Info.Message + "   " + up.Info.Exception.Message;
-        }
+        //    var up = await UserWorkation.InstaApi.MediaProcessor.UploadPhotoAsync(image, "It is My #Dream.");
+        //    if(!up.Succeeded)
+        //    tbriU.Text = up.Info.Message + "   " + up.Info.Exception.Message;
+        //}
 
-        private  void tbriU_Tapped(object sender, TappedRoutedEventArgs e)
-        {
+        //private  void tbriU_Tapped(object sender, TappedRoutedEventArgs e)
+        //{
           
-        }
+        //}
 
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
-            picker.FileTypeFilter.Add(".jpg");
-            picker.FileTypeFilter.Add(".jpeg");
-            // picker.FileTypeFilter.Add(".png");
+        //private async void Button_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    var picker = new Windows.Storage.Pickers.FileOpenPicker();
+        //    picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+        //    picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+        //    picker.FileTypeFilter.Add(".jpg");
+        //    picker.FileTypeFilter.Add(".jpeg");
+        //    // picker.FileTypeFilter.Add(".png");
 
-            SelectedFiles = await picker.PickMultipleFilesAsync();
-            if (file != null)
-            {
-                // Application now has read/write access to the picked file
-                this.tbriU.Text = file.Path;
-                var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
-                string mruToken = mru.Add(file, "pic");
-            }
-            else
-            {
-                this.tbriU.Text = "Operation cancelled.";
-            }
-        }
+        //    SelectedFiles = await picker.PickMultipleFilesAsync();
+        //    if (file != null)
+        //    {
+        //        // Application now has read/write access to the picked file
+        //        this.tbriU.Text = file.Path;
+        //        var mru = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList;
+        //        string mruToken = mru.Add(file, "pic");
+        //    }
+        //    else
+        //    {
+        //        this.tbriU.Text = "Operation cancelled.";
+        //    }
+        //}
     }
 }

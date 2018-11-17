@@ -5,12 +5,23 @@
     xmlns:local="using:Pixo"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     mc:Ignorable="d" Loaded="Page_Loaded">
     <Grid>
+        <Grid.Background>
+            <AcrylicBrush BackgroundSource="HostBackdrop" TintOpacity="0.705" TintColor="#CC151515"/>
+        </Grid.Background>
+        <Grid>
+            <interactivity:Interaction.Behaviors>
+                <behaviors:Blur x:Name="BlurBehavior" Value="7" Duration="4500" Delay="0" AutomaticallyStart="True"/>
+            </interactivity:Interaction.Behaviors>
+        </Grid>
+
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <RadioButton Name="rbPhone" IsChecked="True" Content="Use +923232343432" Foreground="#66FFFFFF" GroupName="s1" Visibility="Collapsed"/>
             <RadioButton Name="rbEmail" IsChecked="False" Content="Use +923232343432" Foreground="#66FFFFFF" GroupName="s1" Visibility="Collapsed"/>
-            <Button Name="btnok" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonStyle}" MinWidth="300" Content="Go" Margin="0,15,0,0" Click="btnok_Click" />
+            <Button Name="btnok" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonStyle}" MinWidth="300" Content="Go" Margin="0,35,0,0" Click="btnok_Click" />
         </StackPanel>
     </Grid>
 </Page>

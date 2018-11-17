@@ -76,7 +76,7 @@ namespace Pixo
         }
 
         //save sessin to file:
-        private static async void SaveSession()
+        public static async void SaveSession()
         {
             if (InstaApi == null)
                 return;
@@ -126,7 +126,7 @@ namespace Pixo
                 InstaApi = InstaApiBuilder.CreateBuilder()
                     .SetUser(userSession)
                     //.UseLogger(new DebugLogger(LogLevel.Exceptions))
-                    .SetRequestDelay(RequestDelay.FromSeconds(5, 15))
+                  //  .SetRequestDelay(RequestDelay.FromSeconds(0, 15))
                     .Build();
 
                 InstaApi.LoadStateDataFromString(json);
@@ -142,14 +142,13 @@ namespace Pixo
             return false;
         }
 
-
-
-        public static async void SetDelay(int delay)
+        public static async Task<bool> _loadSessionDelay()
         {
             try
             {
                 var us = localSettings.Values["LastUser"] as string;
-
+                if (string.IsNullOrEmpty(us))
+                    return false;
                 Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 
                 Windows.Storage.StorageFile File = await storageFolder.GetFileAsync(us + ".txt");
@@ -168,13 +167,20 @@ namespace Pixo
                 InstaApi = InstaApiBuilder.CreateBuilder()
                     .SetUser(userSession)
                     //.UseLogger(new DebugLogger(LogLevel.Exceptions))
-                    .SetRequestDelay(RequestDelay.FromSeconds(5, delay))
+                      .SetRequestDelay(RequestDelay.FromSeconds(5, 15))
                     .Build();
-            }
-            catch
-            {
 
+                InstaApi.LoadStateDataFromString(json);
+
+                _user = _lastUser = InstaApi.GetLoggedUser().UserName;
+                _pass = InstaApi.GetLoggedUser().Password;
+                Debug.WriteLine($"{_user} logged in successfully. passesh ham ine: {_pass}");
+                if (InstaApi.IsUserAuthenticated)
+                    return true;
             }
+            catch { }
+
+            return false;
         }
 
         public static async Task<bool> Logout()

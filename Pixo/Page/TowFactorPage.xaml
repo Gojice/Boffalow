@@ -22,7 +22,7 @@
                     <ImageBrush ImageSource="/Assets/Picture/musk-ox.png" Stretch="Uniform"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <TextBox Name="tbcode" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="Code" MinWidth="300"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#B2FFFFFF" PlaceholderForeground="#66FFFFFF" FocusVisualPrimaryBrush="#66FFFFFF" FocusVisualSecondaryBrush="#19FFFFFF" SelectionHighlightColor="#66FFFFFF"/>
+            <TextBox Name="tbcode" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="Code" MinWidth="300"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#B2FFFFFF"/>
                 <Border Height="1" HorizontalAlignment="Stretch" Background="#66FFFFFF"/>
             <Button Name="btnok" Style="{StaticResource ButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="300" Content="login" Margin="0,23,0,0" Background="#cb1f2d" BorderBrush="#FFD81425" Foreground="#B2FFFFFF" FocusVisualPrimaryBrush="#FFE6DC08" Click="btnok_Click" />
             <TextBlock Name="tbresendCode" Text=" resend it." Tapped="tbresendCode_Tapped" Foreground="#66FFFFFF" Margin="0,7,0,0" />

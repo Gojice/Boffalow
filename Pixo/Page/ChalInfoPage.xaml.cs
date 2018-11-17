@@ -30,7 +30,8 @@ namespace Pixo
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var challenge = (IResult<InstaChallengeRequireVerifyMethod>)e.OriginalSource;
+            var challenge = Statico.Challenge;
+
             if (challenge.Value.StepData != null)
             {
                 if (!string.IsNullOrEmpty(challenge.Value.StepData.PhoneNumber))
@@ -46,9 +47,35 @@ namespace Pixo
             }
         }
 
-        private void btnok_Click(object sender, RoutedEventArgs e)
+        private async void btnok_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                if (rbPhone.IsChecked == true)
+                {
+                    var phone = await UserWorkation.InstaApi.RequestVerifyCodeToSMSForChallengeRequireAsync();
+                    if (phone.Succeeded)
+                    {
+                        Frame.Navigate(typeof(VerifyPage));
+                    }
+                    else
+                        Statico.Notifer.Show(phone.Info.Message, Statico.NotifDelay);
+                }
+                else if(rbEmail.IsChecked == true)
+                {
+                    var email = await UserWorkation.InstaApi.RequestVerifyCodeToEmailForChallengeRequireAsync();
+                    if (email.Succeeded)
+                    {
+                        Frame.Navigate(typeof(VerifyPage));
+                    }
+                    else
+                        Statico.Notifer.Show(email.Info.Message, Statico.NotifDelay);
+                }
+            }
+            catch (Exception ex)
+            {
+                Statico.Notifer.Show(ex.Message, Statico.NotifDelay);
+            }
         }
     }
 }
