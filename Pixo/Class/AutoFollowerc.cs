@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using InstagramApiSharp;
 using InstagramApiSharp.Classes;
 using InstagramApiSharp.Classes.Models;
+using Pixo.Views;
 
 namespace Pixo
 {

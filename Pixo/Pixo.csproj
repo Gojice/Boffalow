@@ -101,63 +101,65 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AboutPage.xaml.cs">
+    <Compile Include="Models\CookieInfoModel.cs" />
+    <Compile Include="Models\CookieModel.cs" />
+    <Compile Include="Models\DeviceInfoModel.cs" />
+    <Compile Include="Models\HistoryModel.cs" />
+    <Compile Include="Models\SessionModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserSessionModel.cs" />
+    <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\Internet.cs" />
-    <Compile Include="Page\ChalInfoPage.xaml.cs">
-      <DependentUpon>ChalInfoPage.xaml</DependentUpon>
+    <Compile Include="Views\ChallengeInfoPage.xaml.cs">
+      <DependentUpon>ChallengeInfoPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page\ForgetPhone.xaml.cs">
-      <DependentUpon>ForgetPhone.xaml</DependentUpon>
+    <Compile Include="Views\ForgetPhonePage.xaml.cs">
+      <DependentUpon>ForgetPhonePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page\ChalengePage.xaml.cs">
-      <DependentUpon>ChalengePage.xaml</DependentUpon>
+    <Compile Include="Views\ChallengePage.xaml.cs">
+      <DependentUpon>ChallengePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\AutoFollowerc.cs" />
     <Compile Include="Class\FollowerAnalyser.cs" />
-    <Compile Include="Class\History.cs" />
-    <Compile Include="Page\ForgetPage.xaml.cs">
+    <Compile Include="Views\ForgetPage.xaml.cs">
       <DependentUpon>ForgetPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page\AutoFollowPage.xaml.cs">
+    <Compile Include="Views\AutoFollowPage.xaml.cs">
       <DependentUpon>AutoFollowPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\Filer.cs" />
-    <Compile Include="Page\HomePage.xaml.cs">
+    <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="AppShell.xaml.cs">
+      <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\UserWorkation.cs" />
-    <Compile Include="Page\TowFactorPage.xaml.cs">
+    <Compile Include="Views\TowFactorPage.xaml.cs">
       <DependentUpon>TowFactorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Class\SeissonClass.cs" />
-    <Compile Include="Page\UnFollowPage.xaml.cs">
+    <Compile Include="Views\UnFollowPage.xaml.cs">
       <DependentUpon>UnFollowPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\UnFollower.cs" />
-    <Compile Include="Page\SettingPage.xaml.cs">
+    <Compile Include="Views\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\Statico.cs" />
     <Compile Include="Class\StringChecker.cs" />
-    <Compile Include="Page\SubmitPhonePage.xaml.cs">
+    <Compile Include="Views\SubmitPhonePage.xaml.cs">
       <DependentUpon>SubmitPhonePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestPage.xaml.cs">
-      <DependentUpon>TestPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Page\VerifyPage.xaml.cs">
+    <Compile Include="Views\VerifyPage.xaml.cs">
       <DependentUpon>VerifyPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -170,7 +172,6 @@
     </Content>
     <None Include="Connected Services\HockeyApp\ConnectedService.json" />
     <None Include="Pixo_StoreKey.pfx" />
-    <None Include="Pixo_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
@@ -219,7 +220,6 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\Temp\Avatar.jpg" />
     <Content Include="Assets\Temp\images.jpg" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
@@ -237,67 +237,63 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AboutPage.xaml">
+    <Page Include="Views\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\ChalInfoPage.xaml">
+    <Page Include="Views\ChallengeInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BStyle.xaml">
+    <Page Include="Styles\BStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\ForgetPhone.xaml">
+    <Page Include="Views\ForgetPhonePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\ChalengePage.xaml">
+    <Page Include="Views\ChallengePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\ForgetPage.xaml">
+    <Page Include="Views\ForgetPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\AutoFollowPage.xaml">
+    <Page Include="Views\AutoFollowPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\HomePage.xaml">
+    <Page Include="Views\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\Login.xaml">
+    <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\MainPage.xaml">
+    <Page Include="AppShell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Page\TowFactorPage.xaml">
+    <Page Include="Views\TowFactorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\UnFollowPage.xaml">
+    <Page Include="Views\UnFollowPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\SettingPage.xaml">
+    <Page Include="Views\SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\SubmitPhonePage.xaml">
+    <Page Include="Views\SubmitPhonePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Page\VerifyPage.xaml">
+    <Page Include="Views\VerifyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -332,7 +328,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Style\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

@@ -1,5 +1,7 @@
 ﻿using InstagramApiSharp.Classes;
 using InstagramApiSharp.Classes.Models;
+using Pixo.Models;
+using Pixo.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +20,7 @@ namespace Pixo
             for (int i = 0; i < max; i++)
             {
                 //press Stop:
-                if (History.isStopUn)
+                if (HistoryModel.IsStopUn)
                 {
                     Stop();
                     return;
@@ -88,7 +90,7 @@ namespace Pixo
             for (int i = 0; i < max; i++)
             {
                 //press Stop:
-                if (History.isStopUn)
+                if (HistoryModel.IsStopUn)
                 {
                     Stop();
                     return;
@@ -156,7 +158,7 @@ namespace Pixo
             {
                 var userShort = (InstaUserShort)item;
                 //press Stop:
-                if (History.isStopUn)
+                if (HistoryModel.IsStopUn)
                 {
                     Stop();
                     return;
@@ -220,7 +222,7 @@ namespace Pixo
         private async void GO(int arg1, ParallelLoopState arg2)
         {
             //press Stop:
-            if (History.isStopUn)
+            if (HistoryModel.IsStopUn)
             {
                 Stop();
                 return;
@@ -288,7 +290,7 @@ namespace Pixo
                 {
                     await Task.Delay(100);
                     Ok += 100;
-                    if (History.isStopUn)
+                    if (HistoryModel.IsStopUn)
                     {
                         Stop();
                         return;
@@ -301,7 +303,7 @@ namespace Pixo
             for (int i = 0; i < max; i++)
             {
                 //press Stop:
-                if (History.isStopUn)
+                if (HistoryModel.IsStopUn)
                 {
                     Stop();
                     return;
@@ -364,8 +366,8 @@ namespace Pixo
 
         private void Stop()
         {
-            History.isStopUn = true;
-            History.unFirst = false;
+            HistoryModel.IsStopUn = true;
+            HistoryModel.UnFirst = false;
             UnFollowPage.btnUnf.Content = "Process";
             if(UnFollowPage.cbMet.SelectedIndex != 3)
             UnFollowPage.tbNumber.IsEnabled = true;
