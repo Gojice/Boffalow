@@ -1,4 +1,4 @@
-﻿<Page
+﻿<mvvm:SessionStateAwarePage
     x:Class="Pixo.Views.LoginPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,6 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:mvvm="using:Prism.Windows.Mvvm"
+    mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
     <Grid>
@@ -25,13 +28,19 @@
                     <ImageBrush ImageSource="/Assets/Picture/musk-ox.png" Stretch="Uniform"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <TextBox Name="tbUsername" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="username" MinWidth="300"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#B2FFFFFF"/>
+            <TextBox Name="tbUsername" Text="{Binding Username, Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled, Mode=OneWay}" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="username" MinWidth="300"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#B2FFFFFF"/>
             <Border Height="1" HorizontalAlignment="Stretch" Background="#66FFFFFF"/>
-            <PasswordBox Style="{StaticResource PasswordBoxStyle}" Name="tbPassword" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="300"  Margin="0,10,0,0" Background="{x:Null}" PlaceholderText="password" BorderBrush="{x:Null}" Foreground="#B2FFFFFF"/>
+            <PasswordBox Name="tbPassword" Password="{Binding Password, Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled, Mode=OneWay}" Style="{StaticResource PasswordBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="300"  Margin="0,10,0,0" Background="{x:Null}" PlaceholderText="password" BorderBrush="{x:Null}" Foreground="#B2FFFFFF"/>
             <Border Height="1" HorizontalAlignment="Stretch" Background="#66FFFFFF"/>
-            <Button Name="btnLogin" Style="{StaticResource ButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="300" Content="login" Margin="0,23,0,0" Background="#cb1f2d" BorderBrush="#FFD81425" Foreground="#B2FFFFFF" FocusVisualPrimaryBrush="#FFE6DC08" Click="btnLogin_Click" />
-            <TextBlock Name="tbForget" Text="forget password?" Tapped="tbForget_Tapped" Foreground="#66FFFFFF" Margin="0,7,0,0" />
+            <Button Name="btnLogin" Command="{Binding LoginCommand}" Style="{StaticResource ButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="300" Content="login" Margin="0,23,0,0" Background="#cb1f2d" BorderBrush="#FFD81425" Foreground="#B2FFFFFF" FocusVisualPrimaryBrush="#FFE6DC08" />
+            <TextBlock Name="tbForget" Text="forget password?" Foreground="#66FFFFFF" Margin="0,7,0,0">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped">
+                        <core:InvokeCommandAction Command="{Binding ForgetCommand}"/>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </TextBlock>
         </StackPanel>
     </Grid>
 
-</Page>
+</mvvm:SessionStateAwarePage>

@@ -1,19 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Microsoft.Toolkit.Uwp.UI.Animations;
-using Pixo.Views;
+﻿using Windows.UI.Xaml.Controls;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -33,26 +18,11 @@ namespace Pixo
             this.InitializeComponent();
         }
 
-        private void Page_Loading(FrameworkElement sender, object args)
+        public void SetContentFrame(Frame frame)
         {
+            myFrame.Content = frame;
             Statico.Notifer = Notifer;
             framer = myFrame;
-            //  await myFrame.Blur(7, 500, 0).StartAsync();
-            if (localSettings.Values["ihaveaaccount"] != null)
-            {
-                if (localSettings.Values["ihaveaaccount"].ToString() == "yes")
-                {
-                    myFrame.Navigate(typeof(HomePage));
-                }
-                else
-                {
-                    myFrame.Navigate(typeof(LoginPage));
-                }
-            }
-            else
-            {
-                myFrame.Navigate(typeof(LoginPage));
-            }
         }
     }
 }
